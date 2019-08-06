@@ -18,20 +18,20 @@ import com.hcl.employee.rest.api.entity.Employee;
 import com.hcl.employee.rest.api.service.ImplEmployeeService;
 
 @RestController
-@RequestMapping("/rest")
+@RequestMapping("/employee")
 public class EmployeeController {
 	
 	@Autowired
 	ImplEmployeeService implEmployeeService;
 	
-	@PostMapping("/employee/add")
+	@PostMapping("/add")
 	public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee)
 	{
 		Employee employee2 = implEmployeeService.addEmployee(employee);
 		return new ResponseEntity<Employee>(employee2, HttpStatus.OK);
 	}
 	
-	@GetMapping("/employee/getEmployee/{empId}")
+	@GetMapping("/{empId}")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable long
 			empId)
 	{
@@ -39,13 +39,13 @@ public class EmployeeController {
 		return new ResponseEntity<Employee>(employee, HttpStatus.OK);
 	}
 	
-	@PutMapping("/employee/updateEmployee/")
-	public ResponseEntity<Employee> updateEmployee(@RequestParam("empId") long empId,@RequestParam("salary") double salary)
+	@PutMapping("/update/{empId}")
+	public ResponseEntity<Employee> updateEmployee(@PathVariable long empId,@RequestParam("salary") double salary)
 	{
 		Employee employee  =implEmployeeService.updateEmployee(empId, salary);
 		return new ResponseEntity<Employee>(employee, HttpStatus.OK);
 	}
-	@GetMapping("/employee/allEmployee")
+	@GetMapping("/all")
 	public ResponseEntity<List<Employee>> getAllEmployee(){
 		
 		List<Employee> list_emp = implEmployeeService.getAllEmployees();
